@@ -2,9 +2,19 @@ import CONFIG from './config.js';
 
 const API_ENDPOINTS = {
   LOGIN: `${CONFIG.BASE_URL}/login`,
+  REGISTER: `${CONFIG.BASE_URL}/register`,
   GET_ALL_STORIES: `${CONFIG.BASE_URL}/stories`,
   ADD_NEW_STORY: `${CONFIG.BASE_URL}/stories`,
 };
+
+async function register({ name, email, password }) {
+  const response = await fetch(API_ENDPOINTS.REGISTER, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, password }),
+  });
+  return response.json();
+}
 
 async function login({ email, password }) {
   const response = await fetch(API_ENDPOINTS.LOGIN, {
@@ -46,4 +56,4 @@ async function addNewStory(formData) {
   });
   return response.json();
 }
-export { login, getAllStories, addNewStory };
+export { login, register, getAllStories, addNewStory };

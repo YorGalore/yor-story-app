@@ -30,8 +30,20 @@ class App {
         }
       })
     });
+
+    const logoutButton = document.querySelector('#logout-button');
+    logoutButton.addEventListener('click', (event) => {
+      event.preventDefault(); // Hentikan aksi default jika ada
+      
+      sessionStorage.removeItem('token'); // Hapus token dari session
+      
+      alert('Anda telah logout.');
+      window.location.hash = '#/login'; // Arahkan ke halaman login
+      this.#navigationDrawer.classList.remove('open'); // Tutup drawer
+    });
   }
 
+  
   async renderPage() {
     const url = getActiveRoute();
     const page = routes[url] || routes['/404'];
